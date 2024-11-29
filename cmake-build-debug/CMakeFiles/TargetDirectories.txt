@@ -1,0 +1,3 @@
+C:/Users/neoka/CLionProjects/bodega/cmake-build-debug/CMakeFiles/bodega.dir
+C:/Users/neoka/CLionProjects/bodega/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/neoka/CLionProjects/bodega/cmake-build-debug/CMakeFiles/rebuild_cache.dir
