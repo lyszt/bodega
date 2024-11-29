@@ -14,7 +14,7 @@ typedef struct Bebida {
     float preco;
     int quantidade;
     int teorAlcoolico;
-    struct Bebida *proximo;
+    struct Bebida *next;
 } Bebida;
 
 typedef struct Cliente {
@@ -23,7 +23,7 @@ typedef struct Cliente {
     char CPF[12];
     int idade;
     int vendeFiado;
-    struct Cliente *proximo;
+    struct Cliente *next;
 } Cliente;
 
 void cadastrarBebida(Bebida **head) {
@@ -44,15 +44,15 @@ void cadastrarBebida(Bebida **head) {
     scanf("%d", &nova->quantidade);
     printf("Teor alcoólico (0 = Não alcoólica): ");
     scanf("%d", &nova->teorAlcoolico);
-    nova->proximo = NULL;
+    nova->next = NULL;
     if (*head == NULL) {
         *head = nova;
     } else {
         Bebida *atual = *head;
-        while (atual->proximo != NULL) {
-            atual = atual->proximo;
+        while (atual->next != NULL) {
+            atual = atual->next;
         }
-        atual->proximo = nova;
+        atual->next = nova;
     }
     printf("Bebida cadastrada com sucesso!\n");
 }
@@ -67,14 +67,14 @@ void mostrarBebidas(Bebida *head) {
         printf("Código: %d | Nome: %s | Volume: %.2fml | Preço: R$%.2f | Estoque: %d | Alcoólico: %s\n",
                atual->codigo, atual->nome, atual->volume, atual->preco, atual->quantidade,
                atual->teorAlcoolico ? "Sim" : "Não");
-        atual = atual->proximo;
+        atual = atual->next;
     }
 }
 
 void liberarBebidas(Bebida **head) {
     while (*head) {
         Bebida *aux = *head;
-        *head = (*head)->proximo;
+        *head = (*head)->next;
         free(aux);
     }
 }
@@ -95,17 +95,17 @@ void cadastrarCliente(Cliente **head) {
     scanf("%d", &novo->idade);
     printf("Vende fiado (0 = Não, 1 = Sim): ");
     scanf("%d", &novo->vendeFiado);
-    novo->proximo = NULL;
+    novo->next = NULL;
     if (*head == NULL || (*head)->idade > novo->idade) {
-        novo->proximo = *head;
+        novo->next = *head;
         *head = novo;
     } else {
         Cliente *atual = *head;
-        while (atual->proximo && atual->proximo->idade <= novo->idade) {
-            atual = atual->proximo;
+        while (atual->next && atual->next->idade <= novo->idade) {
+            atual = atual->next;
         }
-        novo->proximo = atual->proximo;
-        atual->proximo = novo;
+        novo->next = atual->next;
+        atual->next = novo;
     }
     printf("Cliente cadastrado com sucesso!\n");
 }
@@ -120,14 +120,14 @@ void mostrarClientes(Cliente *head) {
         printf("Código: %d | Nome: %s | CPF: %s | Idade: %d | Fiado: %s\n",
                atual->codigo, atual->nome, atual->CPF, atual->idade,
                atual->vendeFiado ? "Sim" : "Não");
-        atual = atual->proximo;
+        atual = atual->next;
     }
 }
 
 void liberarClientes(Cliente **head) {
     while (*head) {
         Cliente *aux = *head;
-        *head = (*head)->proximo;
+        *head = (*head)->next;
         free(aux);
     }
 }
