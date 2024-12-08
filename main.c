@@ -134,6 +134,9 @@ void venderBebida(Sentinela *sentinela) {
                 printf("Estoque insuficiente. Estoque atual: %d\n", atualBebida->quantidade);
                 return;
             }
+            if( atualBebida->teorAlcoolico > 0 && atualCliente->idade < 18){
+                printf("Cliente possui %d anos e %s possui %d teor alcólico. Não é possivel realizar a venda!");
+            }
             atualBebida->quantidade -= quantidade;
             printf("Venda realizada com sucesso!\n");
             return;
@@ -143,18 +146,65 @@ void venderBebida(Sentinela *sentinela) {
     printf("Bebida com código %d não encontrada.\n", codigo);
 }
 
-void liberarBebidas(Bebida **head) {
-    while (*head) {
-        Bebida *aux = *head;
-        *head = (*head)->next;
+void liberarBebidas(Sentinela *sentinela) {
+    while (sentinela->head) {
+        Cliente *aux = sentinela->head;
+        sentinela->head = sentinela->head->next;
         free(aux);
     }
 }
 
-void liberarClientes(Cliente **head) {
-    while (*head) {
-        Cliente *aux = *head;
-        *head = (*head)->next;
+void cadastrarCliente(Sentinela *sentinela) {
+Cliente *novo = (Cliente *)malloc(sizeof(Cliente));
+if (!novo) {
+    printf("Erro ao alocar memória.\n");
+    return;
+}
+novo->next = NULL;
+
+printf("Código do cliente: ");
+scanf("%d", &novo->codigo);
+
+// Checagem se o codigo digitado já existe
+Cliente *atual = sentinela->headCliente;
+while (atual) {
+    if (atual->codigo == novo->codigo) {
+        printf("Código já existe. Digite um novo código.\n");
+        free(novo);
+        return;
+    }
+    atual = atual->next;
+}
+
+printf("Nome do cliente: ");
+scanf("%s", novo->nome);
+printf("CPF do cliente: ");
+scanf("%12s", novo->cpf);
+printf("Idade do cliente: ");
+scanf("%d", &novo->idade);
+printf("Vende fiado (0 = Não, 1 = Sim): ");
+scanf("%d", &novo->vendeFiado);
+
+atual = novo;
+}
+
+void mostrarClientes(Sentinela *sentinela) {
+    if (!sentinela->headCliente) {
+        printf("Nenhum cliente cadastrado.\n");
+        return;
+    }
+    Cliente *atual = sentinela->headCliente;
+    while (atual) {
+        printf("Código: %d | Nome: %s | CPF: %s | Idade: %d | Vender fiado: %d\n",
+               atual->codigo, atual->nome, atual->cpf, atual->idade, atual->vendeFiado ? "Sim" : "Não");
+        atual = atual->next;
+    }
+}
+
+void liberarClientes(Sentinela *sentinela) {
+    while (sentinela->headCliente) {
+        Cliente *aux = sentinela->headCliente;
+        sentinela->headCliente = sentinela->headCliente->next;
         free(aux);
     }
 }
@@ -169,7 +219,9 @@ int main() {
         printf("2. Mostrar bebidas\n");
         printf("3. Comprar bebida\n");
         printf("4. Vender bebida\n");
-        printf("5. Sair\n");
+        printf("5. Cadastrar cliente\n");
+        printf("6. Mostrar clientes\n");
+        printf("7. Sair do sistema\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);
 
@@ -187,6 +239,10 @@ int main() {
                 venderBebida(&sentinela);
                 break;
             case 5:
+                cadastrarCliente(&sentinela);
+            case 6:
+                mostrarCliente(&sentinela);
+            case 7:
                 printf("Encerrando o programa...\n");
                 liberarBebidas(&sentinela.head);
                 liberarClientes(&sentinela.headCliente);
