@@ -2,31 +2,31 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct Empresa {
-    char nome[50];
-    char CNPJ[14];
-} Empresa;
-
 typedef struct Bebida {
     int codigo;
     char nome[50];
     float volume;
     float preco;
     int quantidade;
-    int teorAlcoolico;
+    int teorAlcoolico; // 0 for non-alcoholic, 1 for alcoholic
     struct Bebida *next;
 } Bebida;
 
 typedef struct Cliente {
     int codigo;
     char nome[50];
-    char CPF[12];
+    char cpf[13];
     int idade;
-    int vendeFiado;
+    int vendeFiado; // 0 for no, 1 for yes
     struct Cliente *next;
 } Cliente;
 
-void cadastrarBebida(Bebida **head) {
+typedef struct Sentinela {
+    Bebida *head;
+    Cliente *headCliente;
+} Sentinela;
+
+void cadastrarBebida(Sentinela *sentinela) {
     Bebida *nova = (Bebida *)malloc(sizeof(Bebida));
     if (!nova) {
         printf("Erro ao alocar memória.\n");
@@ -34,6 +34,18 @@ void cadastrarBebida(Bebida **head) {
     }
     printf("Código: ");
     scanf("%d", &nova->codigo);
+
+    // Check if code already exists
+    Bebida *atual = sentinela->head;
+    while (atual) {
+        if (atual->codigo == nova->codigo) {
+            printf("Código já existe. Digite um novo código.\n");
+            free(nova);
+            return;
+        }
+        atual = atual->next;
+    }
+
     printf("Nome: ");
     scanf("%s", nova->nome);
     printf("Volume (ml): ");
@@ -42,27 +54,28 @@ void cadastrarBebida(Bebida **head) {
     scanf("%f", &nova->preco);
     printf("Quantidade em estoque: ");
     scanf("%d", &nova->quantidade);
-    printf("Teor alcoólico (0 = Não alcoólica): ");
+    printf("Teor alcoólico (0 = Não alcoólica, 1 = Alcoólica): ");
     scanf("%d", &nova->teorAlcoolico);
     nova->next = NULL;
-    if (*head == NULL) {
-        *head = nova;
+
+    if (sentinela->head == NULL) {
+        sentinela->head = nova;
     } else {
-        Bebida *atual = *head;
-        while (atual->next != NULL) {
-            atual = atual->next;
+        Bebida *ultimo = sentinela->head;
+        while (ultimo->next != NULL) {
+            ultimo = ultimo->next;
         }
-        atual->next = nova;
+        ultimo->next = nova;
     }
     printf("Bebida cadastrada com sucesso!\n");
 }
 
-void mostrarBebidas(Bebida *head) {
-    if (!head) {
+void mostrarBebidas(Sentinela *sentinela) {
+    if (!sentinela->head) {
         printf("Nenhuma bebida cadastrada.\n");
         return;
     }
-    Bebida *atual = head;
+    Bebida *atual = sentinela->head;
     while (atual) {
         printf("Código: %d | Nome: %s | Volume: %.2fml | Preço: R$%.2f | Estoque: %d | Alcoólico: %s\n",
                atual->codigo, atual->nome, atual->volume, atual->preco, atual->quantidade,
@@ -71,56 +84,70 @@ void mostrarBebidas(Bebida *head) {
     }
 }
 
+void comprarBebida(Sentinela *sentinela) {
+    int codigo, quantidade;
+    printf("Digite o Código da Bebida: ");
+    scanf("%d", &codigo);
+
+    Bebida *atual = sentinela->head;
+    while (atual) {
+        if (atual->codigo == codigo) {
+            printf("Quantidade que deseja adicionar ao estoque da bebida %s: ", atual->nome);
+            scanf("%d", &quantidade);
+            atual->quantidade += quantidade;
+            printf("Estoque atualizado com sucesso!\n");
+            return;
+        }
+        atual = atual->next;
+    }
+    printf("Bebida com código %d não encontrada.\n", codigo);
+}
+
+void venderBebida(Sentinela *sentinela) {
+    int codigo, quantidade;
+    char cpf[13];
+    printf("Digite o CPF do cliente: ");
+    scanf("%12s", cpf);
+
+    Cliente *atualCliente = sentinela->headCliente;
+    while (atualCliente) {
+        if (strcmp(atualCliente->cpf, cpf) == 0) {
+            break;
+        }
+        atualCliente = atualCliente->next;
+    }
+
+    if (!atualCliente) {
+        printf("Cliente com CPF %s não encontrado.\n", cpf);
+        return;
+    }
+
+    printf("Digite o Código da Bebida: ");
+    scanf("%d", &codigo);
+
+    Bebida *atualBebida = sentinela->head;
+    while (atualBebida) {
+        if (atualBebida->codigo == codigo) {
+            printf("Quantidade que deseja vender: ");
+            scanf("%d", &quantidade);
+            if (atualBebida->quantidade < quantidade) {
+                printf("Estoque insuficiente. Estoque atual: %d\n", atualBebida->quantidade);
+                return;
+            }
+            atualBebida->quantidade -= quantidade;
+            printf("Venda realizada com sucesso!\n");
+            return;
+        }
+        atualBebida = atualBebida->next;
+    }
+    printf("Bebida com código %d não encontrada.\n", codigo);
+}
+
 void liberarBebidas(Bebida **head) {
     while (*head) {
         Bebida *aux = *head;
         *head = (*head)->next;
         free(aux);
-    }
-}
-
-void cadastrarCliente(Cliente **head) {
-    Cliente *novo = (Cliente *)malloc(sizeof(Cliente));
-    if (!novo) {
-        printf("Erro ao alocar memória.\n");
-        return;
-    }
-    printf("Código: ");
-    scanf("%d", &novo->codigo);
-    printf("Nome: ");
-    scanf("%s", novo->nome);
-    printf("CPF: ");
-    scanf("%s", novo->CPF);
-    printf("Idade: ");
-    scanf("%d", &novo->idade);
-    printf("Vende fiado (0 = Não, 1 = Sim): ");
-    scanf("%d", &novo->vendeFiado);
-    novo->next = NULL;
-    if (*head == NULL || (*head)->idade > novo->idade) {
-        novo->next = *head;
-        *head = novo;
-    } else {
-        Cliente *atual = *head;
-        while (atual->next && atual->next->idade <= novo->idade) {
-            atual = atual->next;
-        }
-        novo->next = atual->next;
-        atual->next = novo;
-    }
-    printf("Cliente cadastrado com sucesso!\n");
-}
-
-void mostrarClientes(Cliente *head) {
-    if (!head) {
-        printf("Nenhum cliente cadastrado.\n");
-        return;
-    }
-    Cliente *atual = head;
-    while (atual) {
-        printf("Código: %d | Nome: %s | CPF: %s | Idade: %d | Fiado: %s\n",
-               atual->codigo, atual->nome, atual->CPF, atual->idade,
-               atual->vendeFiado ? "Sim" : "Não");
-        atual = atual->next;
     }
 }
 
@@ -133,37 +160,36 @@ void liberarClientes(Cliente **head) {
 }
 
 int main() {
-    Bebida *bebidas = NULL;
-    Cliente *clientes = NULL;
+    Sentinela sentinela = {NULL, NULL};
 
     while (1) {
         int opcao;
         printf("\n===== MENU =====\n");
         printf("1. Cadastrar bebida\n");
         printf("2. Mostrar bebidas\n");
-        printf("3. Cadastrar cliente\n");
-        printf("4. Mostrar clientes\n");
+        printf("3. Comprar bebida\n");
+        printf("4. Vender bebida\n");
         printf("5. Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);
 
         switch (opcao) {
             case 1:
-                cadastrarBebida(&bebidas);
+                cadastrarBebida(&sentinela);
                 break;
             case 2:
-                mostrarBebidas(bebidas);
+                mostrarBebidas(&sentinela);
                 break;
             case 3:
-                cadastrarCliente(&clientes);
+                comprarBebida(&sentinela);
                 break;
             case 4:
-                mostrarClientes(clientes);
+                venderBebida(&sentinela);
                 break;
             case 5:
                 printf("Encerrando o programa...\n");
-                liberarBebidas(&bebidas);
-                liberarClientes(&clientes);
+                liberarBebidas(&sentinela.head);
+                liberarClientes(&sentinela.headCliente);
                 return 0;
             default:
                 printf("Opção inválida. Tente novamente.\n");
