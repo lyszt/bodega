@@ -5,7 +5,7 @@
 int main() {
     Sentinela sentinela = {NULL, NULL};
 
-    while (1) {
+    while (true) {
         int opcao;
         printf("\n===== MENU =====\n");
         printf("1. Cadastrar bebida\n");
@@ -33,8 +33,10 @@ int main() {
                 break;
             case 5:
                 cadastrarCliente(&sentinela);
+                break;
             case 6:
                 mostrarClientes(&sentinela);
+                break;
             case 7:
                 printf("Encerrando o programa...\n");
                 liberarBebidas(&sentinela);
@@ -44,5 +46,4 @@ int main() {
                 printf("Opção inválida. Tente novamente.\n");
         }
     }
-    return 0;
 }

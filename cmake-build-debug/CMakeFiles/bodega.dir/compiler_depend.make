@@ -4,6 +4,7 @@
 CMakeFiles/bodega.dir/main.c.obj: C:/Users/neoka/CLionProjects/bodega/main.c \
   C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/limits.h \
   C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/mm_malloc.h \
+  C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdbool.h \
   C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/syslimits.h \
   C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/_mingw.h \
   C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/_mingw_mac.h \
@@ -24,10 +25,13 @@ CMakeFiles/bodega.dir/main.c.obj: C:/Users/neoka/CLionProjects/bodega/main.c \
   C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/stdlib.h \
   C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/string.h \
   C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/swprintf.inl \
-  C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/vadefs.h
+  C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/vadefs.h \
+  C:/Users/neoka/CLionProjects/bodega/sentinela.h
 
 
 C:/Users/neoka/CLionProjects/bodega/main.c:
+
+C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdbool.h:
 
 C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/_mingw_off_t.h:
 
@@ -43,9 +47,9 @@ C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include
 
 C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/mm_malloc.h:
 
-C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/_mingw_secapi.h:
-
 C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/syslimits.h:
+
+C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/_mingw_secapi.h:
 
 C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/corecrt_stdio_config.h:
 
@@ -74,3 +78,5 @@ C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include
 C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/swprintf.inl:
 
 C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/vadefs.h:
+
+C:/Users/neoka/CLionProjects/bodega/sentinela.h:

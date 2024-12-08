@@ -8,9 +8,11 @@ void cadastrarBebida(Sentinela *sentinela) {
         printf("Erro ao alocar memória.\n");
         return;
     }
-    printf("Código: ");
-    scanf("%d", &nova->codigo);
 
+    while(nova->codigo <= 0){
+        printf("Código: ");
+        scanf("%d", &nova->codigo);
+    }
     Bebida *atual = sentinela->head;
     while (atual) {
         if (atual->codigo == nova->codigo) {
@@ -47,7 +49,7 @@ void cadastrarBebida(Sentinela *sentinela) {
         printf("Quantidade em estoque: ");
         scanf("%d", &nova->quantidade);
     }
-    while(nova->teorAlcoolico != 1 || nova->teorAlcoolico != 0){
+    while(nova->teorAlcoolico != 1 && nova->teorAlcoolico != 0){
     printf("Teor alcoólico (0 = Não alcoólica, 1 = Alcoólica): ");
     scanf("%d", &nova->teorAlcoolico);
     }
@@ -103,12 +105,13 @@ void cadastrarCliente(Sentinela *sentinela) {
     printf("CPF do cliente: ");
     scanf("%12s", novo->cpf);
     while(novo->idade <= 0){
-        printf("Idade do cliente: ");
+        printf("Idade do cliente: \n");
         scanf("%d", &novo->idade);
     }
-    while(novo->vendeFiado != 0 || novo->vendeFiado != 1){
+    while(novo->vendeFiado != 0 && novo->vendeFiado != 1){
         printf("Vende fiado (0 = Não, 1 = Sim): ");
         scanf("%d", &novo->vendeFiado);
     }
+
     atual = novo;
 }

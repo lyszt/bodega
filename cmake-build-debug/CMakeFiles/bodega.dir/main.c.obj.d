@@ -1,5 +1,7 @@
 CMakeFiles/bodega.dir/main.c.obj: \
  C:\Users\neoka\CLionProjects\bodega\main.c \
+ C:\Users\neoka\CLionProjects\bodega\sentinela.h \
+ C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdbool.h \
  C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/stdio.h \
  C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/corecrt_stdio_config.h \
  C:/Users/neoka/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/corecrt.h \

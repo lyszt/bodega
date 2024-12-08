@@ -1,5 +1,6 @@
 #ifndef SENTINELA_H
 #define SENTINELA_H
+
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
