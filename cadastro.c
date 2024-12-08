@@ -10,8 +10,7 @@ void cadastrarBebida(Sentinela *sentinela) {
     }
 
     while(nova->codigo <= 0){
-        printf("Código: ");
-        scanf("%d", &nova->codigo);
+        scanf("Código: %d", &nova->codigo);
     }
     Bebida *atual = sentinela->head;
     while (atual) {
@@ -23,10 +22,9 @@ void cadastrarBebida(Sentinela *sentinela) {
         atual = atual->next;
     }
 
-    printf("Nome: ");
     int is_valid = false;
     while(!is_valid){
-        scanf("%s", nova->nome);
+        scanf("Nome: %s", nova->nome);
         for(int i = 0; i < strlen(nova->nome); i++ ){
             if ((nova->nome[i] >= 65 && nova->nome[i] <= 90) || (nova->nome[i] >= 97 && nova->nome[i] <= 122))
              {
@@ -38,20 +36,16 @@ void cadastrarBebida(Sentinela *sentinela) {
         }
     }
     while(nova->volume <= 0){
-        printf("Volume (ml): ");
-        scanf("%f", &nova->volume);
+        scanf("Volume: %f", &nova->volume);
     }
     while(nova->preco <= 0){
-        printf("Preço: ");
-        scanf("%f", &nova->preco);
+        scanf("Preço: %f", &nova->preco);
     }
     while(nova->quantidade <= 0){
-        printf("Quantidade em estoque: ");
-        scanf("%d", &nova->quantidade);
+        scanf("Quantidade em estoque: %d", &nova->quantidade);
     }
     while(nova->teorAlcoolico != 1 && nova->teorAlcoolico != 0){
-    printf("Teor alcoólico (0 = Não alcoólica, 1 = Alcoólica): ");
-    scanf("%d", &nova->teorAlcoolico);
+        scanf("Teor alcoólico (0 = Não alcoólica, 1 = Alcoólica): %d", &nova->teorAlcoolico);
     }
 
     if (sentinela->head == NULL) {
@@ -73,9 +67,7 @@ void cadastrarCliente(Sentinela *sentinela) {
         return;
     }
     novo->next = NULL;
-
-    printf("Código do cliente: ");
-    scanf("%d", &novo->codigo);
+    scanf("Código do cliente: %d", &novo->codigo);
 
     // Checagem se o codigo digitado já existe
     Cliente *atual = sentinela->headCliente;
@@ -88,10 +80,9 @@ void cadastrarCliente(Sentinela *sentinela) {
         atual = atual->next;
     }
 
-    printf("Nome: ");
     int is_valid = false;
     while(!is_valid){
-        scanf("%s", novo->nome);
+        scanf("Nome: %s", novo->nome);
         for(int i = 0; i < strlen(novo->nome); i++ ){
             if ((novo->nome[i] >= 65 && novo->nome[i] <= 90) || (novo->nome[i] >= 97 && novo->nome[i] <= 122))
             {
@@ -102,15 +93,12 @@ void cadastrarCliente(Sentinela *sentinela) {
             }
         }
     }
-    printf("CPF do cliente: ");
-    scanf("%12s", novo->cpf);
+    scanf("CPF do cliente: %12s", novo->cpf);
     while(novo->idade <= 0){
-        printf("Idade do cliente: \n");
-        scanf("%d", &novo->idade);
+        scanf("Idade do cliente: %d", &novo->idade);
     }
     while(novo->vendeFiado != 0 && novo->vendeFiado != 1){
-        printf("Vende fiado (0 = Não, 1 = Sim): ");
-        scanf("%d", &novo->vendeFiado);
+        scanf("Vende fiado (0 = Não, 1 = Sim): %d", &novo->vendeFiado);
     }
 
     atual = novo;
