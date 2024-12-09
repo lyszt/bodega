@@ -6,7 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct Bebida {
+typedef struct Bebida
+{
     int codigo;
     char nome[50];
     float volume;
@@ -16,7 +17,8 @@ typedef struct Bebida {
     struct Bebida *next;
 } Bebida;
 
-typedef struct Cliente {
+typedef struct Cliente
+{
     int codigo;
     char nome[50];
     char cpf[13];
@@ -25,7 +27,8 @@ typedef struct Cliente {
     struct Cliente *next;
 } Cliente;
 
-typedef struct Sentinela {
+typedef struct Sentinela
+{
     Bebida *head;
     Cliente *headCliente;
 } Sentinela;

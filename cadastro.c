@@ -4,10 +4,12 @@
 #include <string.h>
 #include <stdbool.h>
 
-void cadastrarBebida(Sentinela *sentinela) {
+void cadastrarBebida(Sentinela *sentinela)
+{
     Bebida *nova = (Bebida *)malloc(sizeof(Bebida));
     nova->next = NULL;
-    if (!nova) {
+    if (!nova)
+    {
         printf("Erro ao alocar memória.\n");
         return;
     }
@@ -16,8 +18,10 @@ void cadastrarBebida(Sentinela *sentinela) {
     scanf("%d", &nova->codigo);
 
     Bebida *atual = sentinela->head;
-    while (atual) {
-        if (atual->codigo == nova->codigo) {
+    while (atual)
+    {
+        if (atual->codigo == nova->codigo)
+        {
             printf("Código já existe. Digite um novo código.\n");
             free(nova);
             return;
@@ -40,12 +44,15 @@ void cadastrarBebida(Sentinela *sentinela) {
     printf("Teor alcoólico (0 = Não alcoólica, 1 = Alcoólica): ");
     scanf("%d", &nova->teorAlcoolico);
 
-
-    if (sentinela->head == NULL) {
+    if (sentinela->head == NULL)
+    {
         sentinela->head = nova;
-    } else {
+    }
+    else
+    {
         Bebida *ultimo = sentinela->head;
-        while (ultimo->next != NULL) {
+        while (ultimo->next != NULL)
+        {
             ultimo = ultimo->next;
         }
         ultimo->next = nova;
@@ -53,9 +60,11 @@ void cadastrarBebida(Sentinela *sentinela) {
     printf("Bebida cadastrada com sucesso!\n");
 }
 
-void cadastrarCliente(Sentinela *sentinela) {
+void cadastrarCliente(Sentinela *sentinela)
+{
     Cliente *novo = (Cliente *)malloc(sizeof(Cliente));
-    if (!novo) {
+    if (!novo)
+    {
         printf("Erro ao alocar memória.\n");
         return;
     }
@@ -65,8 +74,10 @@ void cadastrarCliente(Sentinela *sentinela) {
 
     // Checagem se o codigo digitado já existe
     Cliente *atual = sentinela->headCliente;
-    while (atual) {
-        if (atual->codigo == novo->codigo) {
+    while (atual)
+    {
+        if (atual->codigo == novo->codigo)
+        {
             printf("Código já existe. Digite um novo código.\n");
             free(novo);
             return;
@@ -85,11 +96,15 @@ void cadastrarCliente(Sentinela *sentinela) {
     printf("Vende fiado (0 = Não, 1 = Sim): ");
     scanf("%d", &novo->vendeFiado);
 
-    if (sentinela->headCliente == NULL) {
+    if (sentinela->headCliente == NULL)
+    {
         sentinela->headCliente = novo;
-    } else {
+    }
+    else
+    {
         Cliente *ultimo = sentinela->headCliente;
-        while (ultimo->next != NULL) {
+        while (ultimo->next != NULL)
+        {
             ultimo = ultimo->next;
         }
         ultimo->next = novo;
