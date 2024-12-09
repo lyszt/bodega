@@ -51,7 +51,7 @@ void venderBebida(Sentinela *sentinela) {
                 return;
             }
             if( atualBebida->teorAlcoolico > 0 && atualCliente->idade < 18){
-                printf("Cliente possui %d anos e %s possui %d teor alcólico. Não é possivel realizar a venda!", atualCliente->idade, atualBebida->nome, atualBebida->teorAlcoolico);
+                printf("Bebida possui teor alcóolico e cliente não possui idade para consumir esta bebida.");
             }
             atualBebida->quantidade -= quantidade;
             printf("Venda realizada com sucesso!\n");
