@@ -6,7 +6,10 @@ int main()
 
     while (true)
     {
-        int opcao;
+        char opcaoStr[10];
+        char *endptr;
+        long opcao;
+
         printf("\n===== MENU =====\n");
         printf("1. Cadastrar bebida\n");
         printf("2. Mostrar bebidas\n");
@@ -16,7 +19,13 @@ int main()
         printf("6. Mostrar clientes\n");
         printf("7. Sair do sistema\n");
         printf("Escolha uma opção: ");
-        scanf("%d", &opcao);
+        fgets(opcaoStr, sizeof(opcaoStr), stdin);
+        opcao = strtol(opcaoStr, &endptr, 10);
+
+        if (endptr == opcaoStr || *endptr != '\n') {
+            printf("Opção inválida. Tente novamente.\n");
+            continue;
+        }
 
         switch (opcao)
         {
